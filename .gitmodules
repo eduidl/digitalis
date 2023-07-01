@@ -1,0 +1,3 @@
+[submodule "msgs/3rdparty/schemas"]
+	path = msgs/3rdparty/schemas
+	url = git@github.com:foxglove/schemas.git
