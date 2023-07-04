@@ -1,13 +1,13 @@
 [package]
 name = "digitalis-protobuf"
-version = "0.0.0"
+version = "0.1.0"
 authors = ["Yume Hiramatsu <yuma.hiramatsu@gmail.com>"]
 edition = "2021"
 rust-version = "1.60.0"
 description = "Rust implementation of Foxglove message types."
 repository = "https://github.com/eduidl/digitalis"
 license = "Apache-2.0"
-keyword = ["robotics", "protobuf", "foxglove"]
+keywords = ["robotics", "protobuf", "foxglove"]
 include = [
     "Cargo.toml",
     "src/**/*.rs",

@@ -1,0 +1,21 @@
+[package]
+name = "digitalis-server"
+version = "0.0.0"
+authors = ["Yume Hiramatsu <yuma.hiramatsu@gmail.com>"]
+edition = "2021"
+rust-version = "1.60.0"
+repository = "https://github.com/eduidl/digitalis"
+license = "Apache-2.0"
+
+[dependencies]
+async-trait = "0.1"
+digitalis-core = { path = "../core", version = "0.0.0" }
+futures-util = "0.3"
+log = "0.4"
+tokio = { version = "1.27", features = ["sync"] }
+tokio-tungstenite = "0.19"
+
+[dev-dependencies]
+digitalis-protobuf = { path = "../protobuf" }
+tokio = { version = "1.27", features = ["macros", "rt-multi-thread", "time"] }
+env_logger = "0.10"
