@@ -177,6 +177,7 @@ pub enum ServerBinaryMessage {
     MessageData(MessageData),
     Time(Time),
     ServiceCallResponse(ServiceCallResponse),
+    FetchAssetResponse(FetchAssetResponse),
 }
 
 impl ServerBinaryMessage {
@@ -200,6 +201,10 @@ impl ServerBinaryMessage {
                 buf.put_u8(0x03);
                 msg.serialize(buf);
             }
+            Self::FetchAssetResponse(msg) => {
+                buf.put_u8(0x04);
+                msg.serialize(buf);
+            }
         }
     }
 
@@ -208,6 +213,7 @@ impl ServerBinaryMessage {
             0x01 => Self::from(MessageData::deserialize(buf)?),
             0x02 => Self::from(Time::deserialize(buf)?),
             0x03 => Self::from(ServiceCallResponse::deserialize(buf)?),
+            0x04 => Self::from(FetchAssetResponse::deserialize(buf)?),
             x => {
                 return Err(DigitalisError::BinaryDeserializeError(
                     format!("Unknown protocol {}", x).into(),
@@ -220,6 +226,7 @@ impl ServerBinaryMessage {
 impl_enum_from!(ServerBinaryMessage, MessageData);
 impl_enum_from!(ServerBinaryMessage, Time);
 impl_enum_from!(ServerBinaryMessage, ServiceCallResponse);
+impl_enum_from!(ServerBinaryMessage, FetchAssetResponse);
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct MessageData {
@@ -322,6 +329,54 @@ impl ServiceCallResponse {
             call_id,
             encoding,
             payload,
+        })
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct FetchAssetResponse {
+    pub request_id: u32,
+    pub status: u8,
+    pub error_message: Vec<u8>,
+    pub asset_data: Vec<u8>,
+}
+
+impl FetchAssetResponse {
+    fn serialize<T: BufMut>(&self, buf: &mut T) {
+        buf.put_u32_le(self.request_id);
+        buf.put_u8(self.status);
+        buf.put_u32_le(self.error_message.len() as u32);
+        buf.put_slice(&self.error_message);
+        buf.put_slice(&self.asset_data);
+    }
+
+    fn deserialize<T: Buf>(buf: &mut T) -> DigitalisResult<Self> {
+        if buf.remaining() < size_of::<u32>() * 2 + size_of::<u8>() {
+            return Err(DigitalisError::BinaryDeserializeError(
+                "Data is too short".into(),
+            ));
+        }
+
+        let request_id = buf.get_u32_le();
+        let status = buf.get_u8();
+
+        let error_message_len = buf.get_u32_le() as usize;
+        if buf.remaining() < error_message_len {
+            return Err(DigitalisError::BinaryDeserializeError(
+                "Data is too short".into(),
+            ));
+        }
+        let error_message = buf.chunk()[..error_message_len].to_vec();
+        buf.advance(error_message.len());
+
+        let asset_data = buf.chunk().to_vec();
+        buf.advance(asset_data.len());
+
+        Ok(Self {
+            request_id,
+            status,
+            error_message,
+            asset_data,
         })
     }
 }

@@ -18,6 +18,7 @@ pub enum ClientMessage {
     UnsubscribeParameterUpdates(UnsubscribeParameterUpdates),
     SubscribeConnectionGraph,
     UnsubscribeConnectionGraph,
+    FetchAsset(FetchAsset),
     MessageData(MessageData),
     ServiceCallRequest(ServiceCallRequest),
     Close,
@@ -52,6 +53,7 @@ impl From<ClientJsonMessage> for ClientMessage {
             UnsubscribeParameterUpdates(msg) => Self::UnsubscribeParameterUpdates(msg),
             SubscribeConnectionGraph => Self::SubscribeConnectionGraph,
             UnsubscribeConnectionGraph => Self::UnsubscribeConnectionGraph,
+            FetchAsset(msg) => Self::FetchAsset(msg),
         }
     }
 }
@@ -102,6 +104,7 @@ pub enum ClientJsonMessage {
     UnsubscribeParameterUpdates(UnsubscribeParameterUpdates),
     SubscribeConnectionGraph,
     UnsubscribeConnectionGraph,
+    FetchAsset(FetchAsset),
 }
 
 impl ClientJsonMessage {
@@ -126,6 +129,7 @@ impl_enum_from!(ClientJsonMessage, GetParameters);
 impl_enum_from!(ClientJsonMessage, SetParameters);
 impl_enum_from!(ClientJsonMessage, SubscribeParameterUpdates);
 impl_enum_from!(ClientJsonMessage, UnsubscribeParameterUpdates);
+impl_enum_from!(ClientJsonMessage, FetchAsset);
 
 impl_into_text_message!(ClientJsonMessage, Subscribe);
 impl_into_text_message!(ClientJsonMessage, Unsubscribe);
@@ -135,6 +139,7 @@ impl_into_text_message!(ClientJsonMessage, GetParameters);
 impl_into_text_message!(ClientJsonMessage, SetParameters);
 impl_into_text_message!(ClientJsonMessage, SubscribeParameterUpdates);
 impl_into_text_message!(ClientJsonMessage, UnsubscribeParameterUpdates);
+impl_into_text_message!(ClientJsonMessage, FetchAsset);
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -186,6 +191,13 @@ pub struct SubscribeParameterUpdates {
 #[serde(rename_all = "camelCase")]
 pub struct UnsubscribeParameterUpdates {
     pub parameter_names: Vec<String>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct FetchAsset {
+    pub uri: String,
+    pub request_id: Id,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -257,7 +269,7 @@ impl MessageData {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ServiceCallRequest {
     pub service_id: ChannelId,
-    pub call_id: u32,
+    pub call_id: Id,
     pub encoding: Vec<u8>,
     pub payload: Vec<u8>,
 }

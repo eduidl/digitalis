@@ -4,6 +4,7 @@ use serde_json::Value;
 
 use crate::schema::base64_proto;
 
+pub type Id = u32;
 pub type ChannelId = u32;
 pub type SubscriptionId = u32;
 
@@ -16,6 +17,7 @@ pub enum Capability {
     Time,
     Services,
     ConnectionGraph,
+    Assets,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
