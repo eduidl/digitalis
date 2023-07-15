@@ -150,7 +150,7 @@ pub struct Subscribe {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Unsubscribe {
-    pub subscription_ids: Vec<SubscriptionId>,
+    pub subscription_ids: Vec<Id>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -162,7 +162,7 @@ pub struct ClientAdvertise {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ClientUnadvertise {
-    pub channel_ids: Vec<ChannelId>,
+    pub channel_ids: Vec<Id>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -238,7 +238,7 @@ impl_enum_from!(ClientBinaryMessage, ServiceCallRequest);
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct MessageData {
-    pub channel_id: ChannelId,
+    pub channel_id: Id,
     pub payload: Arc<Vec<u8>>,
 }
 
@@ -268,7 +268,7 @@ impl MessageData {
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ServiceCallRequest {
-    pub service_id: ChannelId,
+    pub service_id: Id,
     pub call_id: Id,
     pub encoding: Vec<u8>,
     pub payload: Vec<u8>,

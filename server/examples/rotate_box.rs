@@ -12,7 +12,7 @@ use digitalis_server::{
     client::Client,
     core::{
         client::ClientMessage,
-        common::{AdvertiseChannel, ChannelId, MessageEncoding},
+        common::{AdvertiseChannel, Id, MessageEncoding},
         server, Control, DigitalisResult,
     },
     server::{DigitalisServer, ServerOption},
@@ -31,7 +31,7 @@ impl Server {
 
     fn add_protobuf_channel<T: MessageFull>(&self, topic: &str) -> ChannelQueue {
         let mut channels = self.channels.write().unwrap();
-        let id = channels.len() as ChannelId;
+        let id = channels.len() as Id;
         let sender = Channel::start(id);
 
         channels.insert(

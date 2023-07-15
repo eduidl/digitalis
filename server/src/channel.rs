@@ -1,9 +1,7 @@
 use std::sync::Arc;
 
 use digitalis_core::{
-    common::{ChannelId, SubscriptionId},
-    server::MessageData,
-    Control, DigitalisError, DigitalisResult, MessageMinimal,
+    common::Id, server::MessageData, Control, DigitalisError, DigitalisResult, MessageMinimal,
 };
 use tokio::sync::mpsc;
 
@@ -11,19 +9,19 @@ use crate::client::{Client, ClientId};
 
 #[derive(Debug)]
 pub struct Channel {
-    _id: ChannelId,
-    subscriptions: Vec<(Client, SubscriptionId)>,
+    _id: Id,
+    subscriptions: Vec<(Client, Id)>,
 }
 
 impl Channel {
-    fn new(id: ChannelId) -> Self {
+    fn new(id: Id) -> Self {
         Self {
             _id: id,
             subscriptions: Default::default(),
         }
     }
 
-    pub fn start(id: ChannelId) -> ChannelQueue {
+    pub fn start(id: Id) -> ChannelQueue {
         let (tx, mut rx) = mpsc::channel(100);
 
         tokio::spawn(async move {
@@ -93,11 +91,11 @@ impl Channel {
 pub enum ChannelMessage {
     Subscribe {
         client: Client,
-        id: SubscriptionId,
+        id: Id,
     },
     Unsubscribe {
         client_id: ClientId,
-        ids: Arc<Vec<SubscriptionId>>,
+        ids: Arc<Vec<Id>>,
     },
     UnsubscribeAll {
         client_id: ClientId,
@@ -111,16 +109,16 @@ pub enum ChannelMessage {
 
 #[derive(Debug, Clone)]
 pub struct ChannelQueue {
-    id: ChannelId,
+    id: Id,
     sender: mpsc::Sender<ChannelMessage>,
 }
 
 impl ChannelQueue {
-    pub const fn new(id: ChannelId, sender: mpsc::Sender<ChannelMessage>) -> Self {
+    pub const fn new(id: Id, sender: mpsc::Sender<ChannelMessage>) -> Self {
         Self { id, sender }
     }
 
-    pub const fn id(&self) -> ChannelId {
+    pub const fn id(&self) -> Id {
         self.id
     }
 
@@ -141,15 +139,11 @@ impl ChannelQueue {
         })
     }
 
-    pub fn subscribe(&self, client: Client, id: SubscriptionId) -> DigitalisResult<()> {
+    pub fn subscribe(&self, client: Client, id: Id) -> DigitalisResult<()> {
         self.try_send(ChannelMessage::Subscribe { client, id })
     }
 
-    pub fn unsubscribe(
-        &self,
-        client_id: ClientId,
-        ids: Arc<Vec<SubscriptionId>>,
-    ) -> DigitalisResult<()> {
+    pub fn unsubscribe(&self, client_id: ClientId, ids: Arc<Vec<Id>>) -> DigitalisResult<()> {
         self.try_send(ChannelMessage::Unsubscribe { client_id, ids })
     }
 

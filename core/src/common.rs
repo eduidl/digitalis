@@ -5,8 +5,6 @@ use serde_json::Value;
 use crate::schema::base64_proto;
 
 pub type Id = u32;
-pub type ChannelId = u32;
-pub type SubscriptionId = u32;
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -45,7 +43,7 @@ pub enum SchemaEncoding {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AdvertiseChannel {
-    pub id: ChannelId,
+    pub id: Id,
     pub topic: String,
     pub encoding: MessageEncoding,
     pub schema_name: String,
@@ -55,7 +53,7 @@ pub struct AdvertiseChannel {
 }
 
 impl AdvertiseChannel {
-    pub fn protobuf<T: MessageFull>(id: u32, topic: &str) -> Self {
+    pub fn protobuf<T: MessageFull>(id: Id, topic: &str) -> Self {
         Self {
             id,
             topic: topic.into(),
@@ -70,8 +68,8 @@ impl AdvertiseChannel {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SubscribeChannel {
-    pub id: SubscriptionId,
-    pub channel_id: ChannelId,
+    pub id: Id,
+    pub channel_id: Id,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]

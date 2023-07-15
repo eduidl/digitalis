@@ -108,7 +108,7 @@ pub struct Advertise {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Unadvertise {
-    pub channel_ids: Vec<ChannelId>,
+    pub channel_ids: Vec<Id>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -128,7 +128,7 @@ pub struct AdvertiseServices {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Service {
-    pub id: ChannelId,
+    pub id: Id,
     pub name: String,
     pub r#type: String,
     pub request_schema: String,
@@ -138,7 +138,7 @@ pub struct Service {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct UnadvertiseServices {
-    pub ids: Vec<ChannelId>,
+    pub ids: Vec<Id>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -230,7 +230,7 @@ impl_enum_from!(ServerBinaryMessage, FetchAssetResponse);
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct MessageData {
-    pub subscription_id: SubscriptionId,
+    pub subscription_id: Id,
     pub receive_timestamp: u64,
     pub payload: Arc<Vec<u8>>,
 }
@@ -287,8 +287,8 @@ impl Time {
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ServiceCallResponse {
-    pub service_id: ChannelId,
-    pub call_id: u32,
+    pub service_id: Id,
+    pub call_id: Id,
     pub encoding: Vec<u8>,
     pub payload: Vec<u8>,
 }
@@ -335,7 +335,7 @@ impl ServiceCallResponse {
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct FetchAssetResponse {
-    pub request_id: u32,
+    pub request_id: Id,
     pub status: u8,
     pub error_message: Vec<u8>,
     pub asset_data: Vec<u8>,
