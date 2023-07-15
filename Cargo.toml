@@ -1,6 +1,21 @@
 [workspace]
-members = [
-    "core",
-    "protobuf",
-    "server",
-]
+members = ["core", "protobuf", "server"]
+
+[workspace.package]
+authors = ["Yume Hiramatsu <yuma.hiramatsu@gmail.com>"]
+edition = "2021"
+rust-version = "1.60.0"
+repository = "https://github.com/eduidl/digitalis"
+license = "Apache-2.0"
+
+[workspace.dependencies]
+digitalis-core = { path = "./core", version = "0.0.0" }
+digitalis-protobuf = { path = "./protobuf", version = "0.1.0" }
+digitalis-server = { path = "./server", version = "0.0.0" }
+log = "0.4"
+protobuf = "3"
+serde = "1.0"
+thiserror = "1.0"
+tungstenite = { version = "0.19", default-features = false }
+tokio = "1.27"
+tokio-tungstenite = "0.19"

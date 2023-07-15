@@ -1,22 +1,23 @@
 [package]
 name = "digitalis-core"
 version = "0.0.0"
-authors = ["Yume Hiramatsu <yuma.hiramatsu@gmail.com>"]
-edition = "2021"
-rust-version = "1.60.0"
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+license.workspace = true
 description = "Core module for Digitalis"
-repository = "https://github.com/eduidl/digitalis"
-license = "Apache-2.0"
+keywords = ["robotics", "foxglove"]
 
 [dependencies]
 base64 = "0.21"
 bytes = "1.4"
-protobuf = "3"
+protobuf.workspace = true
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 serde_with = "3.0"
-thiserror = "1.0"
-tungstenite = { version = "0.19", default-features = false }
+thiserror.workspace = true
+tungstenite.workspace = true
 
 [dev-dependencies]
-digitalis-protobuf = { path = "../protobuf" }
+digitalis-protobuf.workspace = true
