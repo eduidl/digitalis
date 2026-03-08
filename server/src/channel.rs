@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
 use digitalis_core::{
-    common::Id, server::MessageData, Control, DigitalisError, DigitalisResult, MessageMinimal,
+    Control, DigitalisError, DigitalisResult, MessageMinimal, common::Id, server::MessageData,
 };
 use tokio::sync::mpsc;
 

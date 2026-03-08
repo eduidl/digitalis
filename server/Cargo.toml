@@ -13,7 +13,7 @@ async-trait = "0.1"
 digitalis-core.workspace = true
 futures-util = "0.3"
 log.workspace = true
-tokio = { workspace = true, features = ["sync"] }
+tokio = { workspace = true, features = ["macros", "rt", "sync"] }
 tokio-tungstenite.workspace = true
 
 [dev-dependencies]
