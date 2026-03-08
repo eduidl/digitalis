@@ -9,7 +9,7 @@ license.workspace = true
 description = "Rust implementation of Foxglove message types."
 keywords = ["robotics", "protobuf", "foxglove"]
 include = ["Cargo.toml", "src/**/*.rs"]
-readme = "READNE.md"
+readme = "README.md"
 
 [dependencies]
 protobuf.workspace = true
