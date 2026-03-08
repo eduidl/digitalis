@@ -1,5 +1,5 @@
 [workspace]
-members = ["core", "protobuf", "server"]
+members = ["core", "protobuf", "server", "xtask"]
 
 [workspace.package]
 authors = ["Yume Hiramatsu <yuma.hiramatsu@gmail.com>"]
@@ -13,7 +13,8 @@ digitalis-core = { path = "./core", version = "0.0.0" }
 digitalis-protobuf = { path = "./protobuf", version = "0.1.0" }
 digitalis-server = { path = "./server", version = "0.0.0" }
 log = "0.4"
-protobuf = "3"
+protobuf = "=3.2.0"
+protobuf-codegen = "=3.2.0"
 serde = "1.0"
 thiserror = "1.0"
 tungstenite = { version = "0.19", default-features = false }

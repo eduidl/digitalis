@@ -8,11 +8,8 @@ repository.workspace = true
 license.workspace = true
 description = "Rust implementation of Foxglove message types."
 keywords = ["robotics", "protobuf", "foxglove"]
-include = ["Cargo.toml", "src/**/*.rs", "build.rs", "3rdparty/**/*.proto"]
+include = ["Cargo.toml", "src/**/*.rs"]
 readme = "READNE.md"
 
 [dependencies]
 protobuf.workspace = true
-
-[build-dependencies]
-protobuf-codegen = "3"
