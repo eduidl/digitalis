@@ -34,6 +34,10 @@ pub struct ImageAnnotations {
     pub points: ::std::vec::Vec<super::PointsAnnotation::PointsAnnotation>,
     // @@protoc_insertion_point(field:foxglove.ImageAnnotations.texts)
     pub texts: ::std::vec::Vec<super::TextAnnotation::TextAnnotation>,
+    // @@protoc_insertion_point(field:foxglove.ImageAnnotations.metadata)
+    pub metadata: ::std::vec::Vec<super::KeyValuePair::KeyValuePair>,
+    // @@protoc_insertion_point(field:foxglove.ImageAnnotations.timestamp)
+    pub timestamp: ::protobuf::MessageField<::protobuf::well_known_types::timestamp::Timestamp>,
     // special fields
     // @@protoc_insertion_point(special_field:foxglove.ImageAnnotations.special_fields)
     pub special_fields: ::protobuf::SpecialFields,
@@ -51,7 +55,7 @@ impl ImageAnnotations {
     }
 
     fn generated_message_descriptor_data() -> ::protobuf::reflect::GeneratedMessageDescriptorData {
-        let mut fields = ::std::vec::Vec::with_capacity(3);
+        let mut fields = ::std::vec::Vec::with_capacity(5);
         let mut oneofs = ::std::vec::Vec::with_capacity(0);
         fields.push(::protobuf::reflect::rt::v2::make_vec_simpler_accessor::<_, _>(
             "circles",
@@ -67,6 +71,16 @@ impl ImageAnnotations {
             "texts",
             |m: &ImageAnnotations| { &m.texts },
             |m: &mut ImageAnnotations| { &mut m.texts },
+        ));
+        fields.push(::protobuf::reflect::rt::v2::make_vec_simpler_accessor::<_, _>(
+            "metadata",
+            |m: &ImageAnnotations| { &m.metadata },
+            |m: &mut ImageAnnotations| { &mut m.metadata },
+        ));
+        fields.push(::protobuf::reflect::rt::v2::make_message_field_accessor::<_, ::protobuf::well_known_types::timestamp::Timestamp>(
+            "timestamp",
+            |m: &ImageAnnotations| { &m.timestamp },
+            |m: &mut ImageAnnotations| { &mut m.timestamp },
         ));
         ::protobuf::reflect::GeneratedMessageDescriptorData::new_2::<ImageAnnotations>(
             "ImageAnnotations",
@@ -95,6 +109,12 @@ impl ::protobuf::Message for ImageAnnotations {
                 26 => {
                     self.texts.push(is.read_message()?);
                 },
+                34 => {
+                    self.metadata.push(is.read_message()?);
+                },
+                42 => {
+                    ::protobuf::rt::read_singular_message_into_field(is, &mut self.timestamp)?;
+                },
                 tag => {
                     ::protobuf::rt::read_unknown_or_skip_group(tag, is, self.special_fields.mut_unknown_fields())?;
                 },
@@ -119,6 +139,14 @@ impl ::protobuf::Message for ImageAnnotations {
             let len = value.compute_size();
             my_size += 1 + ::protobuf::rt::compute_raw_varint64_size(len) + len;
         };
+        for value in &self.metadata {
+            let len = value.compute_size();
+            my_size += 1 + ::protobuf::rt::compute_raw_varint64_size(len) + len;
+        };
+        if let Some(v) = self.timestamp.as_ref() {
+            let len = v.compute_size();
+            my_size += 1 + ::protobuf::rt::compute_raw_varint64_size(len) + len;
+        }
         my_size += ::protobuf::rt::unknown_fields_size(self.special_fields.unknown_fields());
         self.special_fields.cached_size().set(my_size as u32);
         my_size
@@ -134,6 +162,12 @@ impl ::protobuf::Message for ImageAnnotations {
         for v in &self.texts {
             ::protobuf::rt::write_message_field_with_cached_size(3, v, os)?;
         };
+        for v in &self.metadata {
+            ::protobuf::rt::write_message_field_with_cached_size(4, v, os)?;
+        };
+        if let Some(v) = self.timestamp.as_ref() {
+            ::protobuf::rt::write_message_field_with_cached_size(5, v, os)?;
+        }
         os.write_unknown_fields(self.special_fields.unknown_fields())?;
         ::std::result::Result::Ok(())
     }
@@ -154,6 +188,8 @@ impl ::protobuf::Message for ImageAnnotations {
         self.circles.clear();
         self.points.clear();
         self.texts.clear();
+        self.metadata.clear();
+        self.timestamp.clear();
         self.special_fields.clear();
     }
 
@@ -162,6 +198,8 @@ impl ::protobuf::Message for ImageAnnotations {
             circles: ::std::vec::Vec::new(),
             points: ::std::vec::Vec::new(),
             texts: ::std::vec::Vec::new(),
+            metadata: ::std::vec::Vec::new(),
+            timestamp: ::protobuf::MessageField::none(),
             special_fields: ::protobuf::SpecialFields::new(),
         };
         &instance
@@ -187,12 +225,15 @@ impl ::protobuf::reflect::ProtobufValue for ImageAnnotations {
 
 static file_descriptor_proto_data: &'static [u8] = b"\
     \n\x1ffoxglove/ImageAnnotations.proto\x12\x08foxglove\x1a\x1ffoxglove/Ci\
-    rcleAnnotation.proto\x1a\x1ffoxglove/PointsAnnotation.proto\x1a\x1dfoxgl\
-    ove/TextAnnotation.proto\"\xac\x01\n\x10ImageAnnotations\x124\n\x07circl\
-    es\x18\x01\x20\x03(\x0b2\x1a.foxglove.CircleAnnotationR\x07circles\x122\
-    \n\x06points\x18\x02\x20\x03(\x0b2\x1a.foxglove.PointsAnnotationR\x06poi\
-    nts\x12.\n\x05texts\x18\x03\x20\x03(\x0b2\x18.foxglove.TextAnnotationR\
-    \x05textsb\x06proto3\
+    rcleAnnotation.proto\x1a\x1bfoxglove/KeyValuePair.proto\x1a\x1ffoxglove/\
+    PointsAnnotation.proto\x1a\x1dfoxglove/TextAnnotation.proto\x1a\x1fgoogl\
+    e/protobuf/timestamp.proto\"\xad\x02\n\x10ImageAnnotations\x124\n\x07cir\
+    cles\x18\x01\x20\x03(\x0b2\x1a.foxglove.CircleAnnotationR\x07circles\x12\
+    2\n\x06points\x18\x02\x20\x03(\x0b2\x1a.foxglove.PointsAnnotationR\x06po\
+    ints\x12.\n\x05texts\x18\x03\x20\x03(\x0b2\x18.foxglove.TextAnnotationR\
+    \x05texts\x122\n\x08metadata\x18\x04\x20\x03(\x0b2\x16.foxglove.KeyValue\
+    PairR\x08metadata\x12=\n\ttimestamp\x18\x05\x20\x01(\x0b2\x1a.google.pro\
+    tobuf.TimestampH\0R\ttimestamp\x88\x01\x01B\x0c\n\n_timestampb\x06proto3\
 ";
 
 /// `FileDescriptorProto` object which was a source for this generated file
@@ -209,10 +250,12 @@ pub fn file_descriptor() -> &'static ::protobuf::reflect::FileDescriptor {
     static file_descriptor: ::protobuf::rt::Lazy<::protobuf::reflect::FileDescriptor> = ::protobuf::rt::Lazy::new();
     file_descriptor.get(|| {
         let generated_file_descriptor = generated_file_descriptor_lazy.get(|| {
-            let mut deps = ::std::vec::Vec::with_capacity(3);
+            let mut deps = ::std::vec::Vec::with_capacity(5);
             deps.push(super::CircleAnnotation::file_descriptor().clone());
+            deps.push(super::KeyValuePair::file_descriptor().clone());
             deps.push(super::PointsAnnotation::file_descriptor().clone());
             deps.push(super::TextAnnotation::file_descriptor().clone());
+            deps.push(::protobuf::well_known_types::timestamp::file_descriptor().clone());
             let mut messages = ::std::vec::Vec::with_capacity(1);
             messages.push(ImageAnnotations::generated_message_descriptor_data());
             let mut enums = ::std::vec::Vec::with_capacity(0);

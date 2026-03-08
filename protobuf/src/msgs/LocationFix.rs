@@ -42,6 +42,10 @@ pub struct LocationFix {
     pub position_covariance: ::std::vec::Vec<f64>,
     // @@protoc_insertion_point(field:foxglove.LocationFix.position_covariance_type)
     pub position_covariance_type: ::protobuf::EnumOrUnknown<location_fix::PositionCovarianceType>,
+    // @@protoc_insertion_point(field:foxglove.LocationFix.color)
+    pub color: ::protobuf::MessageField<super::Color::Color>,
+    // @@protoc_insertion_point(field:foxglove.LocationFix.metadata)
+    pub metadata: ::std::vec::Vec<super::KeyValuePair::KeyValuePair>,
     // special fields
     // @@protoc_insertion_point(special_field:foxglove.LocationFix.special_fields)
     pub special_fields: ::protobuf::SpecialFields,
@@ -59,7 +63,7 @@ impl LocationFix {
     }
 
     fn generated_message_descriptor_data() -> ::protobuf::reflect::GeneratedMessageDescriptorData {
-        let mut fields = ::std::vec::Vec::with_capacity(7);
+        let mut fields = ::std::vec::Vec::with_capacity(9);
         let mut oneofs = ::std::vec::Vec::with_capacity(0);
         fields.push(::protobuf::reflect::rt::v2::make_message_field_accessor::<_, ::protobuf::well_known_types::timestamp::Timestamp>(
             "timestamp",
@@ -95,6 +99,16 @@ impl LocationFix {
             "position_covariance_type",
             |m: &LocationFix| { &m.position_covariance_type },
             |m: &mut LocationFix| { &mut m.position_covariance_type },
+        ));
+        fields.push(::protobuf::reflect::rt::v2::make_message_field_accessor::<_, super::Color::Color>(
+            "color",
+            |m: &LocationFix| { &m.color },
+            |m: &mut LocationFix| { &mut m.color },
+        ));
+        fields.push(::protobuf::reflect::rt::v2::make_vec_simpler_accessor::<_, _>(
+            "metadata",
+            |m: &LocationFix| { &m.metadata },
+            |m: &mut LocationFix| { &mut m.metadata },
         ));
         ::protobuf::reflect::GeneratedMessageDescriptorData::new_2::<LocationFix>(
             "LocationFix",
@@ -138,6 +152,12 @@ impl ::protobuf::Message for LocationFix {
                 40 => {
                     self.position_covariance_type = is.read_enum_or_unknown()?;
                 },
+                66 => {
+                    ::protobuf::rt::read_singular_message_into_field(is, &mut self.color)?;
+                },
+                74 => {
+                    self.metadata.push(is.read_message()?);
+                },
                 tag => {
                     ::protobuf::rt::read_unknown_or_skip_group(tag, is, self.special_fields.mut_unknown_fields())?;
                 },
@@ -170,6 +190,14 @@ impl ::protobuf::Message for LocationFix {
         if self.position_covariance_type != ::protobuf::EnumOrUnknown::new(location_fix::PositionCovarianceType::UNKNOWN) {
             my_size += ::protobuf::rt::int32_size(5, self.position_covariance_type.value());
         }
+        if let Some(v) = self.color.as_ref() {
+            let len = v.compute_size();
+            my_size += 1 + ::protobuf::rt::compute_raw_varint64_size(len) + len;
+        }
+        for value in &self.metadata {
+            let len = value.compute_size();
+            my_size += 1 + ::protobuf::rt::compute_raw_varint64_size(len) + len;
+        };
         my_size += ::protobuf::rt::unknown_fields_size(self.special_fields.unknown_fields());
         self.special_fields.cached_size().set(my_size as u32);
         my_size
@@ -195,6 +223,12 @@ impl ::protobuf::Message for LocationFix {
         if self.position_covariance_type != ::protobuf::EnumOrUnknown::new(location_fix::PositionCovarianceType::UNKNOWN) {
             os.write_enum(5, ::protobuf::EnumOrUnknown::value(&self.position_covariance_type))?;
         }
+        if let Some(v) = self.color.as_ref() {
+            ::protobuf::rt::write_message_field_with_cached_size(8, v, os)?;
+        }
+        for v in &self.metadata {
+            ::protobuf::rt::write_message_field_with_cached_size(9, v, os)?;
+        };
         os.write_unknown_fields(self.special_fields.unknown_fields())?;
         ::std::result::Result::Ok(())
     }
@@ -219,6 +253,8 @@ impl ::protobuf::Message for LocationFix {
         self.altitude = 0.;
         self.position_covariance.clear();
         self.position_covariance_type = ::protobuf::EnumOrUnknown::new(location_fix::PositionCovarianceType::UNKNOWN);
+        self.color.clear();
+        self.metadata.clear();
         self.special_fields.clear();
     }
 
@@ -231,6 +267,8 @@ impl ::protobuf::Message for LocationFix {
             altitude: 0.,
             position_covariance: ::std::vec::Vec::new(),
             position_covariance_type: ::protobuf::EnumOrUnknown::from_i32(0),
+            color: ::protobuf::MessageField::none(),
+            metadata: ::std::vec::Vec::new(),
             special_fields: ::protobuf::SpecialFields::new(),
         };
         &instance
@@ -330,17 +368,21 @@ pub mod location_fix {
 }
 
 static file_descriptor_proto_data: &'static [u8] = b"\
-    \n\x1afoxglove/LocationFix.proto\x12\x08foxglove\x1a\x1fgoogle/protobuf/\
-    timestamp.proto\"\xa9\x03\n\x0bLocationFix\x128\n\ttimestamp\x18\x06\x20\
-    \x01(\x0b2\x1a.google.protobuf.TimestampR\ttimestamp\x12\x19\n\x08frame_\
-    id\x18\x07\x20\x01(\tR\x07frameId\x12\x1a\n\x08latitude\x18\x01\x20\x01(\
-    \x01R\x08latitude\x12\x1c\n\tlongitude\x18\x02\x20\x01(\x01R\tlongitude\
-    \x12\x1a\n\x08altitude\x18\x03\x20\x01(\x01R\x08altitude\x12/\n\x13posit\
-    ion_covariance\x18\x04\x20\x03(\x01R\x12positionCovariance\x12f\n\x18pos\
-    ition_covariance_type\x18\x05\x20\x01(\x0e2,.foxglove.LocationFix.Positi\
-    onCovarianceTypeR\x16positionCovarianceType\"V\n\x16PositionCovarianceTy\
-    pe\x12\x0b\n\x07UNKNOWN\x10\0\x12\x10\n\x0cAPPROXIMATED\x10\x01\x12\x12\
-    \n\x0eDIAGONAL_KNOWN\x10\x02\x12\t\n\x05KNOWN\x10\x03b\x06proto3\
+    \n\x1afoxglove/LocationFix.proto\x12\x08foxglove\x1a\x14foxglove/Color.p\
+    roto\x1a\x1bfoxglove/KeyValuePair.proto\x1a\x1fgoogle/protobuf/timestamp\
+    .proto\"\x93\x04\n\x0bLocationFix\x128\n\ttimestamp\x18\x06\x20\x01(\x0b\
+    2\x1a.google.protobuf.TimestampR\ttimestamp\x12\x19\n\x08frame_id\x18\
+    \x07\x20\x01(\tR\x07frameId\x12\x1a\n\x08latitude\x18\x01\x20\x01(\x01R\
+    \x08latitude\x12\x1c\n\tlongitude\x18\x02\x20\x01(\x01R\tlongitude\x12\
+    \x1a\n\x08altitude\x18\x03\x20\x01(\x01R\x08altitude\x12/\n\x13position_\
+    covariance\x18\x04\x20\x03(\x01R\x12positionCovariance\x12f\n\x18positio\
+    n_covariance_type\x18\x05\x20\x01(\x0e2,.foxglove.LocationFix.PositionCo\
+    varianceTypeR\x16positionCovarianceType\x12*\n\x05color\x18\x08\x20\x01(\
+    \x0b2\x0f.foxglove.ColorH\0R\x05color\x88\x01\x01\x122\n\x08metadata\x18\
+    \t\x20\x03(\x0b2\x16.foxglove.KeyValuePairR\x08metadata\"V\n\x16Position\
+    CovarianceType\x12\x0b\n\x07UNKNOWN\x10\0\x12\x10\n\x0cAPPROXIMATED\x10\
+    \x01\x12\x12\n\x0eDIAGONAL_KNOWN\x10\x02\x12\t\n\x05KNOWN\x10\x03B\x08\n\
+    \x06_colorb\x06proto3\
 ";
 
 /// `FileDescriptorProto` object which was a source for this generated file
@@ -357,7 +399,9 @@ pub fn file_descriptor() -> &'static ::protobuf::reflect::FileDescriptor {
     static file_descriptor: ::protobuf::rt::Lazy<::protobuf::reflect::FileDescriptor> = ::protobuf::rt::Lazy::new();
     file_descriptor.get(|| {
         let generated_file_descriptor = generated_file_descriptor_lazy.get(|| {
-            let mut deps = ::std::vec::Vec::with_capacity(1);
+            let mut deps = ::std::vec::Vec::with_capacity(3);
+            deps.push(super::Color::file_descriptor().clone());
+            deps.push(super::KeyValuePair::file_descriptor().clone());
             deps.push(::protobuf::well_known_types::timestamp::file_descriptor().clone());
             let mut messages = ::std::vec::Vec::with_capacity(1);
             messages.push(LocationFix::generated_message_descriptor_data());

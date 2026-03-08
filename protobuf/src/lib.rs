@@ -4,16 +4,19 @@ mod msgs;
 pub use msgs::{
     ArrowPrimitive::ArrowPrimitive, CameraCalibration::CameraCalibration,
     CircleAnnotation::CircleAnnotation, Color::Color, CompressedImage::CompressedImage,
-    CubePrimitive::CubePrimitive, CylinderPrimitive::CylinderPrimitive,
-    FrameTransform::FrameTransform, FrameTransforms::FrameTransforms, GeoJSON::GeoJSON, Grid::Grid,
+    CompressedVideo::CompressedVideo, CubePrimitive::CubePrimitive,
+    CylinderPrimitive::CylinderPrimitive, FrameTransform::FrameTransform,
+    FrameTransforms::FrameTransforms, GeoJSON::GeoJSON, Grid::Grid,
     ImageAnnotations::ImageAnnotations, KeyValuePair::KeyValuePair, LaserScan::LaserScan,
-    LinePrimitive::LinePrimitive, LocationFix::LocationFix, Log::Log,
+    LinePrimitive::LinePrimitive, LocationFix::LocationFix, LocationFixes::LocationFixes, Log::Log,
     ModelPrimitive::ModelPrimitive, PackedElementField::PackedElementField, Point2::Point2,
-    Point3::Point3, PointCloud::PointCloud, PointsAnnotation::PointsAnnotation, Pose::Pose,
-    PoseInFrame::PoseInFrame, PosesInFrame::PosesInFrame, Quaternion::Quaternion,
-    RawImage::RawImage, SceneEntity::SceneEntity, SceneEntityDeletion::SceneEntityDeletion,
-    SceneUpdate::SceneUpdate, SpherePrimitive::SpherePrimitive, TextPrimitive::TextPrimitive,
-    TriangleListPrimitive::TriangleListPrimitive, Vector2::Vector2, Vector3::Vector3, *,
+    Point3::Point3, Point3InFrame::Point3InFrame, PointCloud::PointCloud,
+    PointsAnnotation::PointsAnnotation, Pose::Pose, PoseInFrame::PoseInFrame,
+    PosesInFrame::PosesInFrame, Quaternion::Quaternion, RawAudio::RawAudio, RawImage::RawImage,
+    SceneEntity::SceneEntity, SceneEntityDeletion::SceneEntityDeletion, SceneUpdate::SceneUpdate,
+    SpherePrimitive::SpherePrimitive, TextAnnotation::TextAnnotation, TextPrimitive::TextPrimitive,
+    TriangleListPrimitive::TriangleListPrimitive, Vector2::Vector2, Vector3::Vector3,
+    VoxelGrid::VoxelGrid,
 };
 pub use protobuf; // re-export
 
