@@ -13,8 +13,8 @@ digitalis-core = { path = "./core", version = "0.0.0" }
 digitalis-protobuf = { path = "./protobuf", version = "0.1.0" }
 digitalis-server = { path = "./server", version = "0.0.0" }
 log = "0.4"
-protobuf = "=3.2.0"
-protobuf-codegen = "=3.2.0"
+protobuf = "=3.7.2"
+protobuf-codegen = "=3.7.2"
 serde = "1.0"
 thiserror = "1.0"
 tungstenite = { version = "0.19", default-features = false }
